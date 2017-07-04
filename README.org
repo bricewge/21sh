@@ -1,0 +1,35 @@
+* 21sh
+** Research
+- lexical analysis :: The process of converting a sequence of characters into a
+     sequence of tokens (strings with an assigned and thus identified meaning).
+- lexer
+- syntactic analysis
+- parser
+- semantic analysis
+- interpreter
+- abstract syntax tree (AST)
+** Pipeline
+*** Input
+=ls -al *a | grep me > file1=
+*** Lexical analysis
+Length of =input= 27 chars.
+| Lexeme | Token category |
+|--------+----------------|
+| ls     | WORD           |
+| -al    | WORD           |
+| a*     | WORD           |
+| \vert      | ?              |
+| grep   | WORD           |
+| me     | WORD           |
+| >      | ?              |
+| file1  | WORD           |
+
+*** Parsing
+*** Command execution
+** Ressources
+- [[https://forum.intra.42.fr/topics/16416/messages/last][Various links from forum.intra.42.fr]]
+- http://www.aosabook.org/en/bash.html
+- [[https://news.ycombinator.com/item?id=14549281][HN: Writing a Unix Shell - Part II]]
+  - https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+  - http://csapp.cs.cmu.edu/3e/shlab.pdf
+- [[http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10][POSIX Shell Grammar]]

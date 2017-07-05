@@ -9,10 +9,35 @@
 - interpreter
 - abstract syntax tree (AST)
 *** shell language
+**** Operators
+An [[http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_260][operator]] is either a control operator or a redirection operator.
+
+[[http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_318][Redirection operators]]:
+- =<=
+- =>= or =>|=
+- =>>=
+- =<<= or =<<-=
+- =<&=
+- =>&=
+- =<>=
+
+[[http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_113][Control operators]]:
+- =&=
+- =&&=
+- =(=
+- =)=
+- =;=
+- =;;=
+- =\n=
+- =|=
+- =||=
+
+Any other token is a [[http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_446][word]].
+
 **** Reserved words
 | Character   | Utility                | Quoted | Note |
 |-------------+------------------------+--------+------|
-| =\vert=         | grammar                | x      |      |
+| =\vert=     | grammar                | x      |      |
 | =&=         | grammar                | x      |      |
 | =;=         | grammar                | x      |      |
 | =<=         | grammar                | x      |      |
@@ -32,7 +57,7 @@
 | =[=         |                        | ?      |      |
 | =#=         | comment, special param | ?      |      |
 | =~=         | expansion              | ?      |      |
-| =\equal=         |                        | ?      |      |
+| =\equal=    |                        | ?      |      |
 | =%=         |                        | ?      |      |
 
 **** Grammar
@@ -253,6 +278,11 @@ sequential_sep   : ';' linebreak
                  ;
 #+END_SRC
 
+**** Ambiguity
+=$((= vs =$( (=:
+- https://github.com/mvdan/sh#caveats
+- https://github.com/mvdan/sh/issues/30
+
 ** Pipeline
 *** Input
 =ls -al *a | grep me > file1=
@@ -278,3 +308,12 @@ Length of =input= 27 chars.
   - https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
   - http://csapp.cs.cmu.edu/3e/shlab.pdf
 - [[http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10][POSIX Shell Grammar]]
+
+Lexical analysis:
+- http://parsingintro.sourceforge.net/
+- http://savage.net.au/Ron/html/graphviz2.marpa/Lexing.and.Parsing.Overview.html
+- http://cs.wellesley.edu/~cs235/fall11/lectures/35_lexing_and_parsing.pdf
+- https://ai.berkeley.edu/~cs164/sp05/lectures/slide2b-2x4.pdf
+
+Books:
+- Concepts of Programming Languages, by Robert W. Sebesta.

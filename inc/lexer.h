@@ -12,11 +12,11 @@
 
 #ifndef LEXER_H
 # define LEXER_H
-# include "libft.h"
+/* # include "libft.h" */
 
-enum				e_categories
+enum				e_tokens
 {
-	WORD, ASSIGNMENT_WORD, NAME, NEWLINE, IO_NUMBER,
+	WORD = 1, ASSIGNMENT_WORD, NAME, NEWLINE, IO_NUMBER,
 	ANDIF, ORIF, DSEMI,
 	DLESS, DGREAT, LESSAND, GREATAND, LESSGREAT, DLESSDASH,
 	CLOBBER,
@@ -28,8 +28,27 @@ enum				e_categories
 
 typedef struct		s_token
 {
-	char 			*str;
-	int				cat;
-}
+	char 			*val;
+	int				len;
+	int				type;
+}					t_token;
+
+/* Hold the state of the lexer */
+typedef struct		s_lex
+{
+	t_token			token;
+	char			*tknstart;
+	char			*tknend;
+	int				started;
+	int				delimited;
+	int				quoted;
+	int				commented;
+}					t_lex;
+
+/* typedef struct		s_item */
+/* { */
+/* 	int				ind; */
+/* 	char*			str; */
+/* }					t_item; */
 
 #endif

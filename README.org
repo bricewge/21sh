@@ -1,4 +1,15 @@
 * 21sh
+** Tasks
+*** TODO Write lexer
+- token recognition
+- grammar symbols
+
+Return a linked list of tokens to the parser.
+**** Current issues
+- How to handle unlimited line length? Use
+- How to 
+**** TODO Use binary mask for scanner status
+**** TODO Use buffer to store token.val
 ** Research
 - lexical analysis :: The process of converting a sequence of characters into a
      sequence of tokens (strings with an assigned and thus identified meaning).
@@ -28,7 +39,7 @@ An [[http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag
 - =)=
 - =;=
 - =;;=
-- =\n=
+- =newline=
 - =|=
 - =||=
 

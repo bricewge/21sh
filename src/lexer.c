@@ -36,102 +36,11 @@ char* ft_chartostr(char c)
 ** - Start a new token
 */
 
-
-int lex_rule_one(char c, t_lex *status)
-{
-	if (c == '\0' && status->started == 1)
-	{
-		status->delimited = 1;
-		return (1);
-	}
-	return (0);
-}
-
-int lex_rule_two(char c, t_lex *status)
-{
-	/* TODO Write rule */
-	return (0);
-}
-
-int lex_rule_three(char c, t_lex *status)
-{
-	/* TODO Write rule */
-	return (0);
-}
-
-int lex_rule_four(char c, t_lex *status)
-{
-	/* TODO Write rule */
-	return (0);
-}
-int lex_rule_five(char c, t_lex *status)
-{
-	/* TODO Write rule */
-	return (0);
-}
-
-int lex_rule_six(char c, t_lex *status)
-{
-	/* TODO Write rule */
-	return (0);
-}
-
-int lex_rule_seven(char c, t_lex *status)
-{
-	if (ft_isblank(c) && status->quoted == 0)
-	{
-		status->delimited = 1;
-		return (1);
-	}
-	return (0);
-}
-
-int lex_rule_eight(char c, t_lex *status)
-{
-	if (status->token.type == WORD)
-	{
-		status->token.val = ft_strjoinf(status->token.val, ft_chartostr(c), 3);
-			return (1);
-	}
-	return (0);
-}
-
-int lex_rule_nine(char c, t_lex *status)
-{
-	if (c == '#')
-	{
-		status->commented = 1;
-		return (1);
-	}
-	/* Not sure the following is the right way to go */
-	else if (status->commented == 1 && c == '\n')
-	{
-		status->token.type = NEWLINE;
-		status->token.val = "\0";
-		status->delimited = 0;
-		status->commented = 0;
-		return (1);
-	}
-	return (0);
-}
-
-int lex_rule_ten(char c, t_lex *status)
-{
-	status->started = 1;
-	status->token.type = WORD;
-	free(status->token.val);
-	status->token.val = (char*)malloc(sizeof(char) * 2);
-	status->token.val[0] = c;
-	status->token.val[1] = '\0';
-	return (1);
-}
-
-
-int lex_rules(char c, t_lex *status)
+int lex_rules(char *c, t_lex *status)
 {
 	int			i;
 	int			ret;
-	static int	(*rules[10])(char c, t_lex *status) = {
+	static int	(*rules[10])(char *c, t_lex *status) = {
 		lex_rule_one,	lex_rule_two,	lex_rule_three,	lex_rule_four,
 		lex_rule_five,	lex_rule_six,	lex_rule_seven,	lex_rule_eight,
 		lex_rule_nine,	lex_rule_ten
@@ -141,10 +50,9 @@ int lex_rules(char c, t_lex *status)
 	while (++i <= 9)
 	{
 		ret = (rules[i])(c, status);
-		/* if (ret != NOT_APPLY) */
 		if (ret != 0)
 		{
-			printf("%d\n", i);
+			printf("rule #%d retruned %d\n", i + 1, ret);
 			return ret;
 		}
 	}
@@ -158,8 +66,8 @@ void lex_commented(char **line, t_lex *status)
 		status->commented = 0;
 		while (**line)
 		{
-			if (**line == '\n')
-				break;
+			if (**line == '\n' || **line == '\0')
+				return;
 			++(*line);
 		}
 	}
@@ -171,33 +79,41 @@ void lex_delimited(t_lex *status)
 	{
 	/* TODO add to the linked list of tokens */
 		status->delimited = 0;
-		status->started = 0;
-		status->token.val = NULL;
-		status->token.type = -1;
+		status->tkntype = -1;
+		status->tknbeg = NULL;
+		status->tknend = NULL;
 	}
 }
 
 void lexer_debug(t_lex status)
 {
-	printf("tkn.val: %s\n", status.token.val);
-	printf("tkn.type: %d\n", status.token.type);
-	printf("started: %d\tdelimited: %d\tquoted: %d\tcommented: %d\n",
-		   status.started, status.delimited, status.quoted, status.commented);
+	char *tmp = NULL;
+
+	if (status.tknbeg)
+		tmp = ft_strsub(status.tknbeg, 0, status.tknend - status.tknbeg);
+	printf("token: %s\n", tmp);
+	free(tmp);
+	printf("tkntype: %d\n", status.tkntype);
+	printf("delimited: %d\tquoted: %d\tcommented: %d\n\n",
+		   status.delimited, status.quoted, status.commented);
 }
 
 int	lexer(char *line)
 {
 	static t_lex	status = {
-		.token.val = NULL, .token.type = -1,
-		.started = 0, .delimited = 0, .quoted = 0, .commented = 0
+		.delimited = 0, .quoted = 0, .commented = 0,
+		.tknbeg = NULL, .tknend = NULL, .tkntype = -1,
 	};
 
-	while (*line)
+	while (42)
 	{
 		lex_commented(&line, &status);
-		lex_rules(*line, &status);
 		lex_delimited(&status);
+		lex_rules(line, &status);
+		printf("char: %c (%d)\n", *line, *line);
 		lexer_debug(status);
+		if (!*line)
+			break;
 		++line;
 	}
 	return (1);
@@ -208,28 +124,25 @@ int	main(int argc, char** argv)
 	if (argc != 2)
 		return 1;
 	lexer(argv[1]);
+	printf("For=%d, Lbrace=%d", For, Lbrace);
 	return (0);
 }
 
-/* int		test_categories(void) */
-/* { */
-/* 	static t_item operators[17] = { */
-/* 		{0, "&"}, */
-/* 		{0, "("}, */
-/* 		{0, ")"}, */
-/* 		{0, ";"}, */
-/* 		{0, "\n"}, */
-/* 		{0, "|"}, */
-/* 		{ANDIF, "&&"}, */
-/* 		{ORIF, "||"}, */
-/* 		{0, "<"}, */
-/* 		{0, ">"}, */
-/* 		{DSEMI, ";;"}, */
-/* 		{DLESS, "<<"}, */
-/* 		{DGREAT, ">>"}, */
-/* 		{LESSAND, "<&"}, */
-/* 		{GREATAND, ">&"}, */
-/* 		{LESSGREAT, "<>"}, */
-/* 		{DLESSDASH, "<<-"} */
-/* 	}; */
-/* }; */
+int		lex_operators(char c)
+{
+	static t_item	operators[18] = {
+		{0, "&"}, {ANDIF, "&&"}, {0, "("}, {0, ")"}, {0, ";"},
+		{DSEMI, ";;"}, {NEWLINE, "\n"}, {0, "|"}, {ORIF, "||"},
+		{0, "<"}, {0, ">"}, {CLOBBER, ">|"}, {DLESS, "<<"}, {DGREAT, ">>"},
+		{LESSAND, "<&"}, {GREATAND, ">&"}, {LESSGREAT, "<>"}, {DLESSDASH, "<<-"}
+	};
+	int				i;
+
+	i = -1;
+	while (++i < 18)
+	{
+		if (operators[i].str[0] == c)
+			return (operators[i].ind);
+	}
+	return (-1);
+};

@@ -9,7 +9,7 @@ Return a linked list of tokens to the parser.
 - How to handle unlimited line length? Use
 - How to 
 **** TODO Use binary mask for scanner status
-**** TODO Use buffer to store token.val
+**** TODO Use lfind for rule 6
 ** Research
 - lexical analysis :: The process of converting a sequence of characters into a
      sequence of tokens (strings with an assigned and thus identified meaning).

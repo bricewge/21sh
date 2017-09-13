@@ -16,15 +16,6 @@
 
 #include <stdio.h>
 
-char* ft_chartostr(char c)
-{
-	char *str;
-
-	str = (char*)malloc(sizeof(*str) * 2);
-	str[0] = c;
-	str[1] = '\0';
-	return (str);
-}
 
 /*
 ** http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_03
@@ -124,25 +115,6 @@ int	main(int argc, char** argv)
 	if (argc != 2)
 		return 1;
 	lexer(argv[1]);
-	printf("For=%d, Lbrace=%d", For, Lbrace);
+	/* printf("ANDIF: %d\n", ANDIF); */
 	return (0);
 }
-
-int		lex_operators(char c)
-{
-	static t_item	operators[18] = {
-		{0, "&"}, {ANDIF, "&&"}, {0, "("}, {0, ")"}, {0, ";"},
-		{DSEMI, ";;"}, {NEWLINE, "\n"}, {0, "|"}, {ORIF, "||"},
-		{0, "<"}, {0, ">"}, {CLOBBER, ">|"}, {DLESS, "<<"}, {DGREAT, ">>"},
-		{LESSAND, "<&"}, {GREATAND, ">&"}, {LESSGREAT, "<>"}, {DLESSDASH, "<<-"}
-	};
-	int				i;
-
-	i = -1;
-	while (++i < 18)
-	{
-		if (operators[i].str[0] == c)
-			return (operators[i].ind);
-	}
-	return (-1);
-};

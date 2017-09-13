@@ -16,5 +16,5 @@
 
 // To add to libft
 int					ft_isblank(int c);
-
+/* char				*ft_chartostr(char c); */
 #endif

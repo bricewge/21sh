@@ -13,6 +13,7 @@
 #ifndef LEXER_H
 # define LEXER_H
 /* # include "libft.h" */
+#include "to_sh.h"
 
 enum				e_words
 {
@@ -71,4 +72,9 @@ int		lex_rule_eight(char *c, t_lex *status);
 int		lex_rule_nine(char *c, t_lex *status);
 int		lex_rule_ten(char *c, t_lex *status);
 
+t_item				*operators(void);
+int					compar_item_firstchar(const void *p1, const void *p2);
+int					compar_item_str(const void *p1, const void *p2);
+int					tkn_is_op(t_lex status);
+t_item				*char_form_op(char *c, t_lex status);
 #endif

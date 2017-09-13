@@ -48,7 +48,7 @@ Any other token is a [[http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/
 **** Reserved words
 | Character   | Utility                | Quoted | Note |
 |-------------+------------------------+--------+------|
-| =\vert=     | grammar                | x      |      |
+| =\vert=         | grammar                | x      |      |
 | =&=         | grammar                | x      |      |
 | =;=         | grammar                | x      |      |
 | =<=         | grammar                | x      |      |
@@ -68,7 +68,7 @@ Any other token is a [[http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/
 | =[=         |                        | ?      |      |
 | =#=         | comment, special param | ?      |      |
 | =~=         | expansion              | ?      |      |
-| =\equal=    |                        | ?      |      |
+| =\equal=         |                        | ?      |      |
 | =%=         |                        | ?      |      |
 
 **** Grammar

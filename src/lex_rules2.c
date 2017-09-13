@@ -10,14 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+
 #include "lexer.h"
 #include "to_sh.h"
+#include "libft.h"
 
 int lex_rule_six(char *c, t_lex *status)
 {
-	/* TODO Write rule */
-	if (status->quoted != 0)
-		
+	size_t	nb_ops;
+	t_item	*operator;
+
+	nb_ops = 18;
+	operator = ft_lfind(c, (t_arr) {operators(), &nb_ops, sizeof(t_item)},
+			 compar_item_firstchar);
+	if (status->quoted == 0 && operator)
+	{
+		status->tkntype = operator->ind;
+		status->tknbeg = c;
+		status->tknend = c + 1;
+		return (1);
+	}
 	return (0);
 }
 

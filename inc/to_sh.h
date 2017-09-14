@@ -14,7 +14,8 @@
 #ifndef TO_SH_H
 #define TO_SH_H
 
-// To add to libft
+// TODO Add to libft
 int					ft_isblank(int c);
-/* char				*ft_chartostr(char c); */
+void				ft_rmsubstr(char *str, const char *substr);
 #endif
+

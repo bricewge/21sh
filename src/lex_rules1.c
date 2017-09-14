@@ -75,20 +75,11 @@ int lex_rule_four(char *c, t_lex *status)
 		status->tkntype = WORD;
 		return (1);
 	}
-	else if (status->quoted && *(status->tknbeg) == '\\')
-	{
-		(status->tknend)++;
-		status->quoted = 0;
-		return (1);
-	}
-	else if (status->quoted && *(status->tknbeg) == '\'' && *c == '\'')
-	{
-		(status->tknend)++;
-		status->quoted = 0;
-		return (1);
-	}
-	else if (status->quoted && *(status->tknbeg) == '\"' &&
-			 *c == '\"' && *(c - 1) != '\\')
+	else if (status->quoted &&
+			 (*(status->tknbeg) == '\\' ||
+			  (*(status->tknbeg) == '\'' && *c == '\'') ||
+			  (*(status->tknbeg) == '\"' &&  *c == '\"' && *(c - 1) != '\\')
+				 ))
 	{
 		(status->tknend)++;
 		status->quoted = 0;
@@ -96,6 +87,7 @@ int lex_rule_four(char *c, t_lex *status)
 	}
 	return (0);
 }
+
 int lex_rule_five(char *c, t_lex *status)
 {
 	/* TODO Write rule */

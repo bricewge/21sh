@@ -68,7 +68,9 @@ void lex_delimited(t_lex *status)
 {
 	if (status->delimited == 1)
 	{
-	/* TODO add to the linked list of tokens */
+		/* TODO add to the linked list of tokens */
+		/* TODO If the token doesn't start with single-quote then remove the
+	            newline joining: ft_rmsubstr(token, "\\\n"); */
 		status->delimited = 0;
 		status->tkntype = -1;
 		status->tknbeg = NULL;

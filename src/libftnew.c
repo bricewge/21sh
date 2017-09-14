@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
 int		ft_isblank(int c)
 {
@@ -19,13 +20,11 @@ int		ft_isblank(int c)
 	return (0);
 }
 
-/* Use ft_strsub(str, 0, 1) instead */
-/* char* ft_chartostr(char c) */
-/* { */
-/* 	char *str; */
+void	ft_rmsubstr(char *str, const char *substr)
+{
+	int		sublen;
 
-/* 	str = (char*)malloc(sizeof(*str) * 2); */
-/* 	str[0] = c; */
-/* 	str[1] = '\0'; */
-/* 	return (str); */
-/* } */
+	sublen = ft_strlen(substr);
+	while ((str = ft_strstr(str, substr)))
+		ft_memmove(str, str + sublen, 1 + ft_strlen(str + sublen));
+}

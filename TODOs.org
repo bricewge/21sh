@@ -1,0 +1,2 @@
+* TODO Test =ls lo'li= and =ls lo'li'lol=  
+Look at the last token of line if it as unblalanced parenthesis.

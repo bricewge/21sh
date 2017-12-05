@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/01/27 20:08:00 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/05 10:48:22 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,58 +16,58 @@
 #include "to_sh.h"
 #include "libft.h"
 
-int lex_rule_six(char *c, t_lex *status)
+int lex_rule_six(char **c, t_lex *status)
 {
 	size_t	nb_ops;
 	t_item	*operator;
 
 	nb_ops = 18;
-	operator = ft_lfind(c, (t_arr) {operators(), &nb_ops, sizeof(t_item)},
+	operator = ft_lfind(*c, (t_arr) {operators(), &nb_ops, sizeof(t_item)},
 			 compar_item_firstchar);
-	if (status->quoted == 0 && operator)
+	if (operator)
 	{
-		status->tkntype = operator->ind;
-		status->tknbeg = c;
-		status->tknend = c + 1;
-		return (1);
+		if (status->curtkn_start)
+			lex_delimit_tkn(status);
+		status->curtkn_type = S_OPERATOR;
+		status->curtkn_start = *c;
+		status->curtkn_len = 1;
+		return (APPLY);
 	}
-	return (0);
+	return (NEXT);
 }
 
-int lex_rule_seven(char *c, t_lex *status)
+int lex_rule_seven(char **c, t_lex *status)
 {
-	if (ft_isblank(*c) && status->quoted == 0)
+	if (ft_isblank(**c) && status->curtkn_start)
 	{
-		status->delimited = 1;
-		return (1);
+		lex_delimit_tkn(status);
+		return (APPLY);
 	}
-	return (0);
+	return (NEXT);
 }
 
-int lex_rule_eight(char *c, t_lex *status)
+int lex_rule_eight(char **c, t_lex *status)
 {
-	if (status->tkntype == WORD)
+	(void)c;
+	if (status->curtkn_type == WORD)
 	{
-		(status->tknend)++;
-		return (1);
+		(status->curtkn_len)++;
+		return (APPLY);
 	}
-	return (0);
+	return (NEXT);
 }
 
-int lex_rule_nine(char *c, t_lex *status)
+int lex_rule_nine(char **c, t_lex *status)
 {
-	if (*c == '#')
-	{
-		status->commented = 1;
-		return (1);
-	}
-	return (0);
+	(void)c;
+	(void)status;
+	return (NEXT);
 }
 
-int lex_rule_ten(char *c, t_lex *status)
+int lex_rule_ten(char **c, t_lex *status)
 {
-	status->tkntype = WORD;
-	status->tknbeg = c;
-	status->tknend = c + 1;
-	return (1);
+	status->curtkn_type = WORD;
+	status->curtkn_start = *c;
+	status->curtkn_len = 1;
+	return (APPLY);
 }

@@ -294,6 +294,8 @@ sequential_sep   : ';' linebreak
 - https://github.com/mvdan/sh#caveats
 - https://github.com/mvdan/sh/issues/30
 
+** Architecture 
+*** Token
 ** Pipeline
 *** Input
 =ls -al *a | grep me > file1=
@@ -304,10 +306,10 @@ Length of =input= 27 chars.
 | ls     | WORD           |
 | -al    | WORD           |
 | a*     | WORD           |
-| \vert      | ?              |
+| \vert      | SINGLE_OP       |
 | grep   | WORD           |
 | me     | WORD           |
-| >      | ?              |
+| >      | SINGLE_OP       |
 | file1  | WORD           |
 
 *** Parsing

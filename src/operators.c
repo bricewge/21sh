@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/01/27 20:08:00 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/05 12:09:45 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_item		*operators(void)
 
 	/* printf("--- %d ---\n", operators[1].ind); */
 	return (operators);
-};
+}
 
 int		compar_item_firstchar(const void *p1, const void *p2)
 {
@@ -52,32 +52,32 @@ int		compar_item_str(const void *p1, const void *p2)
 }
 
 
-int		tkn_is_op(t_lex status)
-{
-	if (status.tkntype == 0 ||
-		 (status.tkntype >= ANDIF && status.tkntype <= CLOBBER))
-		return (1);
-	else
-		return (0);
-}
+/* int		tkn_is_op(t_lex status) */
+/* { */
+/* 	if (status.tkntype == 0 || */
+/* 		 (status.tkntype >= ANDIF && status.tkntype <= CLOBBER)) */
+/* 		return (1); */
+/* 	else */
+/* 		return (0); */
+/* } */
+
 /*
 ** If the current char together with the current token can form an operator
 ** it return this operator or NULL otherwise.
+** TODO Only use operators used in 21sh
 */
 
-t_item	*char_form_op(char *c, t_lex status)
+int		can_form_op(t_lex status)
 {
 	size_t	nb_ops;
 	t_item	*operator;
 	char	*cur_op;
 
 	nb_ops = 18;
-	cur_op = ft_strsub(status.tknbeg, 0,
-					   status.tknend - status.tknbeg + 1);
+	cur_op = ft_strsub(status.curtkn_start, 0, status.curtkn_len + 1);
 	operator = ft_lfind(cur_op,
 						(t_arr) {operators(), &nb_ops, sizeof(*operator)},
 						compar_item_str);
-	if (cur_op)
-		free(cur_op);
-	return (operator);
+	free(cur_op);
+	return (operator ? 1 : 0);
 }

@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 14:29:12 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/06 08:29:06 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int lex_rule_one(char **c, t_lex *status)
 int lex_rule_two(char **c, t_lex *status)
 {
 	(void)c;
-	if (status->state == S_OPERATOR && can_form_op(*status))
+	if (status->curtkn_type == S_OPERATOR && can_form_op(*status))
 	{
 		(status->curtkn_len)++;
 		return (APPLY);
@@ -40,9 +40,10 @@ int lex_rule_two(char **c, t_lex *status)
 int lex_rule_three(char **c, t_lex *status)
 {
 	(void)c;
-	if (status->state == S_OPERATOR && !can_form_op(*status))
+	if (status->curtkn_type == S_OPERATOR && !can_form_op(*status))
 	{
 		lex_delimit_tkn(status);
+		--(*c);
 		return (APPLY);
 	}
 	return (NEXT);

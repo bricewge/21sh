@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 14:55:10 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:19:12 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	lexer(char *line)
 	while (42)
 	{
 		rule = lex_rules(&line, &status) + 1;
+		/* printf("RULE: %d\n", rule); */
 		/* printf("char: %c (%d)\n", *line, *line); */
-		/* lexer_debug(rule, status); */
 		if (!*line)
 			break;
 		++line;
@@ -91,9 +91,13 @@ int	main(int argc, char** argv)
 	while (ret)
 	{
 		ret = get_next_line(fd, &line);
-		ft_putendl(line);
-		lexer(line);
-		ft_putchar('\n');
+		if (line)
+		{
+			ft_putendl(line);
+			lexer(line);
+			ft_putchar('\n');
+			free(line);
+		}
 	}
 	close(fd);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 12:09:45 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:18:51 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,29 @@
 #include "to_sh.h"
 #include "lexer.h"
 #include "libft.h"
+
+t_item		*ops_long(void)
+{
+	static t_item	operators[11] = {
+		{ANDIF, "&&"}, {DSEMI, ";;"}, {NEWLINE, "\n"},
+		{ORIF, "||"}, {CLOBBER, ">|"}, {DLESS, "<<"},
+		{DGREAT, ">>"}, {LESSAND, "<&"}, {GREATAND, ">&"},
+		{LESSGREAT, "<>"}, {DLESSDASH, "<<-"}
+	};
+
+	return (operators);
+}
+
+t_item		*ops_single(void)
+{
+	static t_item	operators[7] = {
+		{0, "&"}, {0, "("}, {0, ")"},
+		{0, ";"},  {0, "|"}, {0, "<"},
+		{0, ">"}
+	};
+
+	return (operators);
+}
 
 t_item		*operators(void)
 {
@@ -28,6 +51,7 @@ t_item		*operators(void)
 	/* printf("--- %d ---\n", operators[1].ind); */
 	return (operators);
 }
+
 
 int		compar_item_firstchar(const void *p1, const void *p2)
 {
@@ -69,15 +93,15 @@ int		compar_item_str(const void *p1, const void *p2)
 
 int		can_form_op(t_lex status)
 {
-	size_t	nb_ops;
-	t_item	*operator;
 	char	*cur_op;
+	int		ret;
 
-	nb_ops = 18;
+	ret = 0;
 	cur_op = ft_strsub(status.curtkn_start, 0, status.curtkn_len + 1);
-	operator = ft_lfind(cur_op,
-						(t_arr) {operators(), &nb_ops, sizeof(*operator)},
-						compar_item_str);
+	if (ft_strcmp(cur_op, ">>") == 0 || ft_strcmp(cur_op, "<<") == 0
+		|| ft_strcmp(cur_op, ">&") == 0 || ft_strcmp(cur_op, "<&") == 0
+		|| ft_strcmp(cur_op, "<>") == 0)
+		ret = 1;
 	free(cur_op);
-	return (operator ? 1 : 0);
+	return (ret);
 }

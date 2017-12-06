@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 12:18:04 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/05 16:53:00 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct		s_tkn
 /* Hold the state of the lexer */
 typedef struct		s_lex
 {
-	int				state;
 	char			*curtkn_start;
 	int				curtkn_len;
 	int				curtkn_type;

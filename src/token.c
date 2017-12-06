@@ -6,7 +6,7 @@
 /*   By: bwaegene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 10:50:29 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 14:51:31 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:39:27 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_tkn	*tkn_alloc(char *val, int len, int type)
 void tkn_print(t_lex status, t_tkn tkn)
 {
 	(void)status;
-	printf("VALUE: %-30s TYPE: %d\n", tkn.val, tkn.type);
+	printf("TYPE: %d\t\tVALUE: \033[4m%s\033[0m \n", tkn.type, tkn.val);
 }
 
 /* TODO

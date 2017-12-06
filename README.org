@@ -296,6 +296,12 @@ sequential_sep   : ';' linebreak
 
 ** Architecture 
 *** Token
+*** Parser
+**** Rules
+***** command
+***** redirection
+***** pipe
+***** separator
 ** Pipeline
 *** Input
 =ls -al *a | grep me > file1=

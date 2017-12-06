@@ -6,14 +6,14 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 16:53:00 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/06 17:16:32 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 # include "libft.h"
-#include "to_sh.h"
+# include "to_sh.h"
 
 enum				e_rules
 {
@@ -58,7 +58,8 @@ typedef struct		s_lex
 	char			*curtkn_start;
 	int				curtkn_len;
 	int				curtkn_type;
-	t_list			*tkn_list;
+	t_list			*tknlst_start;
+	t_list			*tknlst_last;
 }					t_lex;
 
 typedef struct		s_item
@@ -82,8 +83,8 @@ void	lex_delimit_tkn(t_lex *status);
 char	*lex_scanner(char *path);
 
 t_tkn	*tkn_alloc(char *val, int len, int type);
-void	tkn_insert(t_tkn *tkn, t_lex *status);
 void	tkn_print(t_lex status, t_tkn tkn);
+void	tknlst_append(t_tkn *tkn, t_lex *status);
 
 t_item				*operators(void);
 int					compar_item_firstchar(const void *p1, const void *p2);

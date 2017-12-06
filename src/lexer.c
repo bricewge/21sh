@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/06 09:36:17 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/06 12:06:44 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+void lex_print(t_list *elem)
+{
+	t_tkn	*tkn;
+
+	tkn = (t_tkn*)(elem->content);
+	printf("TYPE: %d\t\tVALUE: \033[4m%s\033[0m \n", tkn->type, tkn->val);
+}
+
 void lex_delimit_tkn(t_lex *status)
 {
 	t_tkn	*tkn;
@@ -26,7 +34,17 @@ void lex_delimit_tkn(t_lex *status)
 	val = ft_strsub(status->curtkn_start, 0, status->curtkn_len);
 	tkn = tkn_alloc(val, status->curtkn_len, status->curtkn_type);
 	free(val);
-	tkn_print(*status, *tkn);
+	/* tkn_print(*status, *tkn); */
+	if (!status->tknlst_start)
+	{
+		status->tknlst_start = ft_lstnew((const void*)tkn, sizeof(t_tkn));
+		status->tknlst_last = status->tknlst_start;
+	}
+	else
+	{
+		status->tknlst_last->next = ft_lstnew((const void*)tkn, sizeof(t_tkn));
+		status->tknlst_last = status->tknlst_last->next;
+	}
 	status->curtkn_start = NULL;
 	status->curtkn_len = 0;
 	status->curtkn_type = -1;
@@ -59,7 +77,7 @@ int	lexer(char *line)
 
 	status = (t_lex){
 		.curtkn_start = line, .curtkn_len = 0, .curtkn_type = -1,
-		.tkn_list = NULL
+		.tknlst_start = NULL, .tknlst_last = NULL
 	};
 
 	while (42)
@@ -73,6 +91,7 @@ int	lexer(char *line)
 	}
 	if (status.curtkn_start)
 		lex_delimit_tkn(&status);
+	ft_lstiter(status.tknlst_start, lex_print);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bwaegene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 10:50:29 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 17:39:27 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/06 09:56:46 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void tkn_print(t_lex status, t_tkn tkn)
 	printf("TYPE: %d\t\tVALUE: \033[4m%s\033[0m \n", tkn.type, tkn.val);
 }
 
-/* TODO
-void	tkn_insert(t_tkn tkn, t_lex status);
-*/
+/* void	tknlst_append(t_tkn *tkn, t_lex *status) */
+/* { */
+/* 	status->tkn_lst->next = */
+/* } */

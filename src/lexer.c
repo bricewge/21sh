@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 17:19:12 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/06 09:36:17 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ void lex_delimit_tkn(t_lex *status)
 	tkn = tkn_alloc(val, status->curtkn_len, status->curtkn_type);
 	free(val);
 	tkn_print(*status, *tkn);
-	/* tkn_insert(tkn, *status); */
-	/* status->state = S_GENERAL; */
 	status->curtkn_start = NULL;
 	status->curtkn_len = 0;
-	status->curtkn_type = 0;
+	status->curtkn_type = -1;
 }
 
 int lex_rules(char **c, t_lex *status)
@@ -73,6 +71,8 @@ int	lexer(char *line)
 			break;
 		++line;
 	}
+	if (status.curtkn_start)
+		lex_delimit_tkn(&status);
 	return (1);
 }
 

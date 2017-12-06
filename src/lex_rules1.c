@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/06 08:29:06 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/06 09:36:08 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,12 @@ int lex_rule_four(char **c, t_lex *status)
 
 	if (**c == '\'' || **c == '"')
 	{
+		if (!status->curtkn_start)
+		{
+			status->curtkn_start = *c;
+			status->curtkn_type = WORD;
+		}
 		quote = **c;
-		status->curtkn_start = *c;
-		status->curtkn_type = WORD;
 		++(status->curtkn_len);
 		while (**c)
 		{
@@ -66,6 +69,7 @@ int lex_rule_four(char **c, t_lex *status)
 			if (**c == quote)
 				break;
 		}
+		/* TODO Quoted on several lines */
 		return (APPLY);
 	}
 	return (NEXT);

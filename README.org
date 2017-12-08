@@ -302,6 +302,8 @@ sequential_sep   : ';' linebreak
 ***** redirection
 ***** pipe
 ***** separator
+*** Grammar
+
 ** Pipeline
 *** Input
 =ls -al *a | grep me > file1=
@@ -333,6 +335,7 @@ Lexical analysis:
 - http://savage.net.au/Ron/html/graphviz2.marpa/Lexing.and.Parsing.Overview.html
 - http://cs.wellesley.edu/~cs235/fall11/lectures/35_lexing_and_parsing.pdf
 - https://ai.berkeley.edu/~cs164/sp05/lectures/slide2b-2x4.pdf
+- http://www.ai.univ-paris8.fr/~jm/compil-2016-1/support.pdf
 
 Books:
 - Concepts of Programming Languages, by Robert W. Sebesta.

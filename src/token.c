@@ -6,7 +6,7 @@
 /*   By: bwaegene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 10:50:29 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/06 09:56:46 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/08 10:45:34 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ t_tkn	*tkn_alloc(char *val, int len, int type)
 	return (tkn);
 }
 
-void tkn_print(t_lex status, t_tkn tkn)
+void tkn_print(t_list *elem)
 {
-	(void)status;
-	printf("TYPE: %d\t\tVALUE: \033[4m%s\033[0m \n", tkn.type, tkn.val);
+	t_tkn	*tkn;
+
+	tkn = (t_tkn*)(elem->content);
+	printf("TYPE: %-10s\tVALUE: \033[4m%s\033[0m \n", ops_used()[tkn->type].str, tkn->val);
 }
+
 
 /* void	tknlst_append(t_tkn *tkn, t_lex *status) */
 /* { */

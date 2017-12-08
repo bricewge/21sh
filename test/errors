@@ -1,0 +1,6 @@
+echo trololol |
+echo trololol | ;
+echo trol <<
+echo trol << ;
+echo lol >
+echo lol >> ;

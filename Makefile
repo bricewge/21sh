@@ -6,7 +6,7 @@
 #    By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/18 09:48:23 by bwaegene          #+#    #+#              #
-#    Updated: 2017/12/05 14:22:56 by bwaegene         ###   ########.fr        #
+#    Updated: 2017/12/07 15:08:53 by bwaegene         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -26,13 +26,14 @@ NAME = 21sh
 
 # Project related variables
 SRC_PATH =  src
-SRC_NAME =	lex_rules1.c 		\
-					 lex_rules2.c			\
-					 lexer.c					\
-					 libftnew.c				\
-					 operators.c			\
-					 scanner.c				\
-					 token.c
+SRC_NAME =	lex_rules1.c	 		\
+						lex_rules2.c			\
+						lexer.c						\
+						parser.c					\
+						libftnew.c				\
+						operators.c				\
+						scanner.c					\
+						token.c
 OBJ_PATH = obj
 OBJ_PATHS = $(sort $(dir $(OBJ)))
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -66,7 +67,7 @@ lib:
 DBG_CFLAGS = -g -O0 -DDEBUG
 DBG_LDLIBS = $(subst lib,-l, $(DBG_LIB_NAME:.a=))
 DBG_LIB_NAME = libft-debug.a
-DBG_PATH = obj-dbj
+DBG_PATH = obj-debug
 DBG_NAME = $(NAME)-debug
 DBG_OBJ = $(addprefix $(DBG_PATH)/, $(OBJ_NAME))
 DBG_OBJ_PATHS = $(sort $(dir $(DBG_OBJ)))

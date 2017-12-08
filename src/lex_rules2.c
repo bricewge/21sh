@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/06 08:27:08 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/07 15:37:00 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int lex_rule_six(char **c, t_lex *status)
 	{
 		if (status->curtkn_start)
 			lex_delimit_tkn(status);
-		status->curtkn_type = S_OPERATOR;
+		status->curtkn_type = OPERATOR;
 		status->curtkn_start = *c;
 		status->curtkn_len = 1;
 		return (APPLY);

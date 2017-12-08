@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/06 12:06:44 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/08 10:22:15 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-
-void lex_print(t_list *elem)
-{
-	t_tkn	*tkn;
-
-	tkn = (t_tkn*)(elem->content);
-	printf("TYPE: %d\t\tVALUE: \033[4m%s\033[0m \n", tkn->type, tkn->val);
-}
 
 void lex_delimit_tkn(t_lex *status)
 {
@@ -70,7 +62,7 @@ int lex_rules(char **c, t_lex *status)
 	return (0);
 }
 
-int	lexer(char *line)
+t_list	*lexer(char *line)
 {
 	t_lex	status;
 	int		rule;
@@ -91,8 +83,7 @@ int	lexer(char *line)
 	}
 	if (status.curtkn_start)
 		lex_delimit_tkn(&status);
-	ft_lstiter(status.tknlst_start, lex_print);
-	return (1);
+	return (status.tknlst_start);
 }
 
 int	main(int argc, char** argv)
@@ -101,6 +92,7 @@ int	main(int argc, char** argv)
 	int 	i;
 	int		fd;
 	int		ret;
+	t_list	*tkns;
 
 	if (argc != 2)
 		return 1;
@@ -113,7 +105,11 @@ int	main(int argc, char** argv)
 		if (line)
 		{
 			ft_putendl(line);
-			lexer(line);
+			tkns = lexer(line);
+			ft_lstiter(tkns, tkn_print);
+			parser(tkns);
+			ft_putendl("PARSER");
+			ft_lstiter(tkns, tkn_print);
 			ft_putchar('\n');
 			free(line);
 		}

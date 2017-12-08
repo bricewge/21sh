@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/06 17:16:32 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/08 10:41:19 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,22 @@
 
 enum				e_rules
 {
-	NEXT = 0, APPLY
+	ERROR = -1, NEXT = 0, APPLY
 };
 
-enum				e_states
+/* enum				e_states */
+/* { */
+/* 	S_GENERAL = 0, S_QUOTE, S_OPERATOR, S_WORD */
+/* }; */
+
+enum				e_tkns
 {
-	S_GENERAL = 0, S_QUOTE, S_OPERATOR, S_WORD
+	WORD = 1, OPERATOR, IONUMBER, SEPARATOR, HEREDOC, REDIRECT, PIPE
 };
 
 enum				e_words
 {
-	WORD = 1, ASSIGNMENT_WORD, NAME, NEWLINE, IO_NUMBER,
+	/* WORD = 1, */ ASSIGNMENT_WORD = 2, NAME, NEWLINE, IO_NUMBER,
 };
 
 enum				e_operators
@@ -62,6 +67,14 @@ typedef struct		s_lex
 	t_list			*tknlst_last;
 }					t_lex;
 
+typedef struct		s_parse
+{
+	t_list			*tkns;
+	t_tkn			*cur;
+	t_tkn			*prev;
+	t_tkn			*next;
+}					t_parse;
+
 typedef struct		s_item
 {
 	int				idx;
@@ -83,12 +96,17 @@ void	lex_delimit_tkn(t_lex *status);
 char	*lex_scanner(char *path);
 
 t_tkn	*tkn_alloc(char *val, int len, int type);
-void	tkn_print(t_lex status, t_tkn tkn);
 void	tknlst_append(t_tkn *tkn, t_lex *status);
+void	tkn_print(t_list *elem);
+
+t_list	*parser(t_list *tkns);
 
 t_item				*operators(void);
 int					compar_item_firstchar(const void *p1, const void *p2);
 int					compar_item_str(const void *p1, const void *p2);
 int					tkn_is_op(t_lex status);
 int					can_form_op(t_lex status);
+int					isredirop(char *s);
+
+t_item		*ops_used(void);
 #endif

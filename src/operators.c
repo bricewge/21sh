@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/05 17:18:51 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/08 10:45:16 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ t_item		*ops_long(void)
 		{ORIF, "||"}, {CLOBBER, ">|"}, {DLESS, "<<"},
 		{DGREAT, ">>"}, {LESSAND, "<&"}, {GREATAND, ">&"},
 		{LESSGREAT, "<>"}, {DLESSDASH, "<<-"}
+	};
+
+	return (operators);
+}
+
+t_item		*ops_used(void)
+{
+	static t_item	operators[8] = {
+		{0, "unknowm"}, {WORD, "word"}, {OPERATOR, "operator"},
+		{IONUMBER, "ionum"}, {SEPARATOR, "separator"}, {HEREDOC, "heredoc"},
+		{REDIRECT, "redirect"}, {PIPE, "pipe"}
 	};
 
 	return (operators);
@@ -104,4 +115,20 @@ int		can_form_op(t_lex status)
 		ret = 1;
 	free(cur_op);
 	return (ret);
+}
+
+int		isredirop(char *s)
+{
+	int		i;
+	char	*redirops[7];
+
+	ft_memcpy(redirops, (char*[]) { "<", "<<", "<&", ">", ">>", ">&", "<>" },
+						 sizeof(redirops));
+	if (!s)
+		return (0);
+	i = -1;
+	while (++i < 6)
+		if (ft_strequ(s, redirops[i]))
+			return (1);
+	return (0);
 }

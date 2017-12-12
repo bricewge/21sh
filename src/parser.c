@@ -6,7 +6,7 @@
 /*   By: bwaegene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:44:13 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/08 11:09:41 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/11 16:38:03 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ t_list	*parser(t_list *tkns)
 	status = (t_parse){
 		.tkns = tkns, .cur = tkns->content , .prev = NULL, .next = NULL
 	};
-
 	while (status.tkns)
 	{
 		if (status.tkns->next)

@@ -6,7 +6,7 @@
 #    By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/18 09:48:23 by bwaegene          #+#    #+#              #
-#    Updated: 2017/12/07 15:08:53 by bwaegene         ###   ########.fr        #
+#    Updated: 2017/12/10 15:59:54 by bwaegene         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -33,6 +33,7 @@ SRC_NAME =	lex_rules1.c	 		\
 						libftnew.c				\
 						operators.c				\
 						scanner.c					\
+						cmd.c							\
 						token.c
 OBJ_PATH = obj
 OBJ_PATHS = $(sort $(dir $(OBJ)))

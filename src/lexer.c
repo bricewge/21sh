@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/08 10:22:15 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/11 16:11:47 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int argc, char** argv)
 	int		fd;
 	int		ret;
 	t_list	*tkns;
+	t_list	*cmds;
 
 	if (argc != 2)
 		return 1;
@@ -106,10 +107,12 @@ int	main(int argc, char** argv)
 		{
 			ft_putendl(line);
 			tkns = lexer(line);
-			ft_lstiter(tkns, tkn_print);
+			/* ft_lstiter(tkns, tkn_print); */
 			parser(tkns);
-			ft_putendl("PARSER");
+			/* ft_putendl("PARSER"); */
 			ft_lstiter(tkns, tkn_print);
+			cmds = cmd(tkns);
+			/* exec(cmds); */
 			ft_putchar('\n');
 			free(line);
 		}

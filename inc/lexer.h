@@ -6,7 +6,7 @@
 /*   By: bwaegene <bwaegene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:24:35 by bwaegene          #+#    #+#             */
-/*   Updated: 2017/12/08 10:41:19 by bwaegene         ###   ########.fr       */
+/*   Updated: 2017/12/10 15:45:55 by bwaegene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,16 @@ typedef struct		s_parse
 	t_tkn			*next;
 }					t_parse;
 
+typedef struct		s_cmd
+{
+	char			*cmd;
+	char			**args;
+	char			**envp;
+	int				fd_in;
+	int				fd_out;
+	int				fd_err;
+}					t_cmd;
+
 typedef struct		s_item
 {
 	int				idx;
@@ -100,6 +110,7 @@ void	tknlst_append(t_tkn *tkn, t_lex *status);
 void	tkn_print(t_list *elem);
 
 t_list	*parser(t_list *tkns);
+int		cmd(t_parse status, t_list *cmds);
 
 t_item				*operators(void);
 int					compar_item_firstchar(const void *p1, const void *p2);
